@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Pokemon from 'components/Pokemon';
-import { makeGetRequest } from '../../services/networking/request';
+import { makeGetRequest, makePostRequest } from '../../services/networking/request';
 
 import Style from './Home.style';
 
@@ -25,7 +25,22 @@ class Home extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    makeGetRequest('/pokemon').then(response => this.setState({ pokemons: response.body }));
+    makeGetRequest('/pokemon')
+      .then(response => {
+        console.assert(response.body.length == 0);
+        this.setState({ pokemons: response.body });
+      })
+      .catch(() => {
+        console.log('no result');
+        const data = {
+          name: 'Bulbizarre',
+          height: 1,
+          weight: 2,
+        };
+        makePostRequest('/pokemon', data)
+          .then(() => makeGetRequest('/pokemon'))
+          .then(response => this.setState({ pokemons: response.body }));
+      });
   }
 
   render(): React.ReactNode {
