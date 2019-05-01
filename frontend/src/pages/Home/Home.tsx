@@ -69,11 +69,6 @@ class Home extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const pokemonsItems = this.state.pokemons.map(pokemon => (
-      <li key={pokemon.id}>
-        <Pokemon name={pokemon.name} id={pokemon.id} />
-      </li>
-    ));
     return (
       <Style.Intro>
         <Pokemon name="Carapuce" id={7} />
