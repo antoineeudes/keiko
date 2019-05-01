@@ -5,10 +5,6 @@ import Style from './Home.style';
 
 class Home extends React.Component {
   render(): React.ReactNode {
-    const pokemon = 'Carapuce';
-    const pokemonId = 7;
-    const pokeType = 'Eau';
-
     return (
       <Style.Intro>
         <Pokemon name="Carapuce" id={7} type="Eau" />
