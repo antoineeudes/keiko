@@ -27,6 +27,7 @@ class Home extends React.Component<Props, State> {
   componentDidMount() {
     makeGetRequest('/pokemon').then(response => this.setState({ pokemons: response.body }));
   }
+
   render(): React.ReactNode {
     return (
       <Style.Intro>
