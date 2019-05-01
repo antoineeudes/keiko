@@ -27,11 +27,12 @@ class Home extends React.Component<Props, State> {
   componentDidMount() {
     makeGetRequest('/pokemon')
       .then(response => {
-        console.assert(response.body.length == 0);
+        if (response.body.length === 0) {
+          throw 'datablase empty';
+        }
         this.setState({ pokemons: response.body });
       })
       .catch(() => {
-        console.log('no result');
         const data = {
           name: 'Bulbizarre',
           height: 1,
