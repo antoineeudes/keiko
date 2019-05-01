@@ -3,14 +3,9 @@ import * as React from 'react';
 interface Props {
   name: string;
   id: number;
-  type: string;
 }
 
 class Pokemon extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
@@ -27,7 +22,6 @@ class Pokemon extends React.Component<Props> {
             alt={this.props.name}
           />
         </div>
-        <div>Type {this.props.type}</div>
       </div>
     );
   }
