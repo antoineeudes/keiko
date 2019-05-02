@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest, makePostRequest } from '../../services/networking/request';
-
 import Style from './Home.style';
 
 interface Props {}
