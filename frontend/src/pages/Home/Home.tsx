@@ -15,30 +15,6 @@ interface State {
   pokemons: PokemonCaracteristics[];
 }
 
-interface ListItemProps {
-  key: number;
-  value: PokemonCaracteristics;
-}
-
-function ListItem(props: ListItemProps) {
-  return (
-    <li>
-      <Pokemon name={props.value.name} id={props.value.id} />
-    </li>
-  );
-}
-
-function ListOfPokemons(props: State) {
-  const PokemonList = props.pokemons;
-  return (
-    <ul>
-      {PokemonList.map(pokemon => (
-        <ListItem key={pokemon.id} value={pokemon} />
-      ))}
-    </ul>
-  );
-}
-
 class Home extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -57,7 +33,13 @@ class Home extends React.Component<Props, State> {
         {this.state.pokemons.length == 0 ? (
           <h1>Loading...</h1>
         ) : (
-          <ListOfPokemons pokemons={this.state.pokemons} />
+          <ul>
+            {this.state.pokemons.map(pokemon => (
+              <li>
+                <Pokemon name={pokemon.name} id={pokemon.id} />
+              </li>
+            ))}
+          </ul>
         )}
       </Style.Intro>
     );
