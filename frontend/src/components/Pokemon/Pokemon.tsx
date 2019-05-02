@@ -19,7 +19,6 @@ class Pokemon extends React.Component<Props> {
           }.png`}
           alt={this.props.name}
         />
-        <div>Type {this.props.type}</div>
       </div>
     );
   }
