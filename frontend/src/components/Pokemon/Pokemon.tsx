@@ -3,7 +3,6 @@ import * as React from 'react';
 interface Props {
   name: string;
   id: number;
-  type: string;
 }
 
 class Pokemon extends React.Component<Props> {
