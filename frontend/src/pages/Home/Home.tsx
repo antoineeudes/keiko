@@ -15,6 +15,7 @@ interface PokemonCaracteristics {
 interface State {
   pokemons: PokemonCaracteristics[];
   loading: boolean;
+  error: boolean;
 }
 
 class Home extends React.Component<Props, State> {
@@ -23,20 +24,23 @@ class Home extends React.Component<Props, State> {
     this.state = {
       pokemons: [],
       loading: true,
+      error: false,
     };
   }
 
   componentDidMount() {
     makeGetRequest('/pokemon')
-      .then(response => this.setState({ pokemons: response.body }))
-      .then(_ => this.setState({ loading: false }));
+      .then(response => this.setState({ pokemons: response.body, loading: false }))
+      .catch(_ => this.setState({ error: true }));
   }
 
   render(): React.ReactNode {
     return (
       <Style.Intro>
         <Style.Header>Pokedex</Style.Header>
-        {this.state.loading ? (
+        {this.state.error ? (
+          <h1>Une erreur est survenue</h1>
+        ) : this.state.loading ? (
           <Style.Loader />
         ) : (
           <Grid container>
