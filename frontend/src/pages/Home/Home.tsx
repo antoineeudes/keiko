@@ -2,6 +2,7 @@ import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
+import Grid from '@material-ui/core/Grid';
 
 interface Props {}
 
@@ -30,21 +31,22 @@ class Home extends React.Component<Props, State> {
   render(): React.ReactNode {
     return (
       <Style.Intro>
+        <Style.Header>Pokedex</Style.Header>
         {this.state.pokemons.length == 0 ? (
           <h1>Loading...</h1>
         ) : (
-          <ul>
+          <Grid container>
             {this.state.pokemons.map(pokemon => (
-              <li>
+              <Grid item md={3} xs={6}>
                 <Pokemon
                   name={pokemon.name}
                   id={pokemon.id}
                   weight={pokemon.weight}
                   height={pokemon.height}
                 />
-              </li>
+              </Grid>
             ))}
-          </ul>
+          </Grid>
         )}
       </Style.Intro>
     );

@@ -8,7 +8,7 @@ interface Props {
   height: number;
 }
 
-function jsUcfirst(string: string) {
+function UppercaseFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -16,18 +16,16 @@ class Pokemon extends React.Component<Props> {
   render() {
     return (
       <Style.Card>
-        <h1>{jsUcfirst(this.props.name)}</h1>
+        <Style.Header>{UppercaseFirstLetter(this.props.name)}</Style.Header>
         <img
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
             this.props.id
           }.png`}
           alt={this.props.name}
         />
-        <p>Id: {this.props.id}</p>
         <p>
-          Weight: <b>{this.props.weight}</b> kg
-        </p>
-        <p>
+          Id: {this.props.id} <br />
+          Weight: <b>{this.props.weight}</b> kg <br />
           Height: <b>{this.props.height}</b> cm
         </p>
       </Style.Card>
