@@ -25,8 +25,8 @@ class Pokemon extends React.Component<Props> {
         />
         <p>
           Id: {this.props.id} <br />
-          Weight: <b>{this.props.weight}</b> kg <br />
-          Height: <b>{this.props.height}</b> cm
+          Weight: {this.props.weight} kg <br />
+          Height: {this.props.height} cm
         </p>
       </Style.Card>
     );
