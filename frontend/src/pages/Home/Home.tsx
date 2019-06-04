@@ -3,7 +3,6 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
 import Grid from '@material-ui/core/Grid';
-import { truncate } from 'fs';
 
 interface Props {}
 
