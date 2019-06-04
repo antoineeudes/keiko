@@ -9,7 +9,7 @@ export default {
     align-items: center;
     flex-direction: column;
     padding: 10px;
-    margin: 5px;
+    margin: 10px;
   `,
   Header: styled.h1`
     font-size: 20px;
