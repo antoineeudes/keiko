@@ -36,7 +36,12 @@ class Home extends React.Component<Props, State> {
           <ul>
             {this.state.pokemons.map(pokemon => (
               <li>
-                <Pokemon name={pokemon.name} id={pokemon.id} />
+                <Pokemon
+                  name={pokemon.name}
+                  id={pokemon.id}
+                  weight={pokemon.weight}
+                  height={pokemon.height}
+                />
               </li>
             ))}
           </ul>
