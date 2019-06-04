@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export default {
   Card: styled.div`
-    border: solid;
+    border: thick double;
     font-size: 15px;
     font-family: 'PokemonGB';
     text-align: center;
