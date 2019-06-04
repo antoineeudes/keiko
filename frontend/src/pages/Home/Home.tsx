@@ -3,6 +3,7 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
 import Grid from '@material-ui/core/Grid';
+import { truncate } from 'fs';
 
 interface Props {}
 
@@ -14,6 +15,7 @@ interface PokemonCaracteristics {
 }
 interface State {
   pokemons: PokemonCaracteristics[];
+  loading: boolean;
 }
 
 class Home extends React.Component<Props, State> {
@@ -21,19 +23,22 @@ class Home extends React.Component<Props, State> {
     super(props);
     this.state = {
       pokemons: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
-    makeGetRequest('/pokemon').then(response => this.setState({ pokemons: response.body }));
+    makeGetRequest('/pokemon')
+      .then(response => this.setState({ pokemons: response.body }))
+      .then(_ => this.setState({ loading: false }));
   }
 
   render(): React.ReactNode {
     return (
       <Style.Intro>
         <Style.Header>Pokedex</Style.Header>
-        {this.state.pokemons.length == 0 ? (
-          <h1>Loading...</h1>
+        {this.state.loading ? (
+          <Style.Loader />
         ) : (
           <Grid container>
             {this.state.pokemons.map(pokemon => (
