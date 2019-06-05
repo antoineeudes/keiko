@@ -15,9 +15,4 @@ export default {
     font-size: 50px;
     margin: 30px;
   `,
-  Loader: styled.img.attrs({
-    src: '/loader.svg',
-  })`
-    width: 200px;
-  `,
 };

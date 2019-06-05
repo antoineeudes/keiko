@@ -3,6 +3,7 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
 import Grid from '@material-ui/core/Grid';
+import loader from '../../loader.svg';
 
 interface Props {}
 
@@ -31,7 +32,7 @@ class Home extends React.Component<Props, State> {
   componentDidMount() {
     makeGetRequest('/pokemon')
       .then(response => this.setState({ pokemons: response.body, loading: false }))
-      .catch(_ => this.setState({ error: true }));
+      .catch(() => this.setState({ error: true, loading: false }));
   }
 
   render(): React.ReactNode {
@@ -39,13 +40,13 @@ class Home extends React.Component<Props, State> {
       <Style.Intro>
         <Style.Header>Pokedex</Style.Header>
         {this.state.error ? (
-          <h1>Une erreur est survenue</h1>
+          <p>Une erreur est survenue</p>
         ) : this.state.loading ? (
-          <Style.Loader />
+          <img src={loader} alt="loader" width="200" />
         ) : (
           <Grid container>
             {this.state.pokemons.map(pokemon => (
-              <Grid item md={3} xs={6}>
+              <Grid item md={3} xs={6} key={pokemon.id}>
                 <Pokemon
                   name={pokemon.name}
                   id={pokemon.id}
