@@ -2,6 +2,8 @@ import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
+import Grid from '@material-ui/core/Grid';
+import loader from '../../loader.svg';
 
 interface Props {}
 
@@ -13,6 +15,8 @@ interface PokemonCaracteristics {
 }
 interface State {
   pokemons: PokemonCaracteristics[];
+  loading: boolean;
+  error: boolean;
 }
 
 class Home extends React.Component<Props, State> {
@@ -20,26 +24,41 @@ class Home extends React.Component<Props, State> {
     super(props);
     this.state = {
       pokemons: [],
+      loading: true,
+      error: false,
     };
   }
 
-  componentDidMount() {
-    makeGetRequest('/pokemon').then(response => this.setState({ pokemons: response.body }));
+  async componentDidMount() {
+    try {
+      const response = await makeGetRequest('/pokemon');
+      this.setState({ pokemons: response.body, loading: false });
+    } catch (error) {
+      this.setState({ error: true, loading: false });
+    }
   }
 
   render(): React.ReactNode {
     return (
       <Style.Intro>
-        {this.state.pokemons.length == 0 ? (
-          <h1>Loading...</h1>
+        <Style.Header>Pokedex</Style.Header>
+        {this.state.error ? (
+          <p>Une erreur est survenue</p>
+        ) : this.state.loading ? (
+          <img src={loader} alt="loader" width="200" />
         ) : (
-          <ul>
+          <Grid container>
             {this.state.pokemons.map(pokemon => (
-              <li>
-                <Pokemon name={pokemon.name} id={pokemon.id} />
-              </li>
+              <Grid item md={3} xs={6} key={pokemon.id}>
+                <Pokemon
+                  name={pokemon.name}
+                  id={pokemon.id}
+                  weight={pokemon.weight}
+                  height={pokemon.height}
+                />
+              </Grid>
             ))}
-          </ul>
+          </Grid>
         )}
       </Style.Intro>
     );
