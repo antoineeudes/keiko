@@ -11,6 +11,7 @@ interface Props {
 class Pokemon extends React.Component<Props> {
   render() {
     return (
+
       <Style.Card>
         <Style.Header>{this.props.name}</Style.Header>
         <img
