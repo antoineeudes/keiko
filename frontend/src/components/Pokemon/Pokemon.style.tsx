@@ -13,5 +13,6 @@ export default {
   `,
   Header: styled.h1`
     font-size: 20px;
+    text-transform: capitalize;
   `,
 };
