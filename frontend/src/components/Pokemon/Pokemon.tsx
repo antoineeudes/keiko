@@ -11,16 +11,16 @@ interface Props {
 
 function Pokemon(props: Props) {
   const [turned, setTurned] = useState(false);
-  const urlPrefix = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
   return (
     <Style.Card>
       <Style.TurnIco src={turnIco} alt="turn-ico" onClick={() => setTurned(!turned)} />
       <Style.Header>{props.name}</Style.Header>
-      {turned ? (
-        <img src={`${urlPrefix}/back/${props.id}.png`} alt={props.name} />
-      ) : (
-        <img src={`${urlPrefix}/${props.id}.png`} alt={props.name} />
-      )}
+      <img
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon${
+          turned ? '/back/' : '/'
+        }${props.id}.png`}
+        alt={props.name}
+      />
       <p>
         Id: {props.id} <br />
         Weight: {props.weight / 10} kg <br />
