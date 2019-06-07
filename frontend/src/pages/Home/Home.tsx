@@ -12,8 +12,7 @@ interface PokemonCaracteristics {
 }
 
 function Home() {
-  const initialPokemonState: PokemonCaracteristics[] = [];
-  const [pokemons, setPokemons] = useState(initialPokemonState);
+  const [pokemons, setPokemons] = useState<PokemonCaracteristics[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
