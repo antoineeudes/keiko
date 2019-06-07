@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Style from './Pokemon.style';
+import turnIco from '../../turn-ico.svg';
 
 interface Props {
   name: string;
@@ -10,6 +11,7 @@ interface Props {
 
 const Pokemon = (props: Props) => (
   <Style.Card>
+    <Style.TurnIco src={turnIco} alt="turn-ico" />
     <Style.Header>{props.name}</Style.Header>
     <img
       src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${

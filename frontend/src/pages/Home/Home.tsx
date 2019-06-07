@@ -2,7 +2,6 @@ import * as React from 'react';
 import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
-import Grid from '@material-ui/core/Grid';
 import loader from '../../loader.svg';
 
 interface Props {}
@@ -47,18 +46,17 @@ class Home extends React.Component<Props, State> {
         ) : this.state.loading ? (
           <img src={loader} alt="loader" width="200" />
         ) : (
-          <Grid container>
+          <Style.Container>
             {this.state.pokemons.map(pokemon => (
-              <Grid item md={3} xs={6} key={pokemon.id}>
-                <Pokemon
-                  name={pokemon.name}
-                  id={pokemon.id}
-                  weight={pokemon.weight}
-                  height={pokemon.height}
-                />
-              </Grid>
+              <Pokemon
+                key={pokemon.id}
+                name={pokemon.name}
+                id={pokemon.id}
+                weight={pokemon.weight}
+                height={pokemon.height}
+              />
             ))}
-          </Grid>
+          </Style.Container>
         )}
       </Style.Intro>
     );
