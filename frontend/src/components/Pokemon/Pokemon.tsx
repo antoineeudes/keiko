@@ -23,4 +23,5 @@ function Pokemon(props: Props) {
     </Style.Card>
   );
 }
+
 export default Pokemon;
