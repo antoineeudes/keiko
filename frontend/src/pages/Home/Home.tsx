@@ -3,13 +3,9 @@ import Pokemon from 'components/Pokemon';
 import { makeGetRequest } from '../../services/networking/request';
 import Style from './Home.style';
 import loader from '../../loader.svg';
-
-interface PokemonCaracteristics {
-  id: number;
-  name: string;
-  height: number;
-  weight: number;
-}
+import PokemonCaracteristics from '../../PokemonCaracteristics';
+import { Link } from 'react-router-dom';
+import './Link.css';
 
 function Home() {
   const [pokemons, setPokemons] = useState<PokemonCaracteristics[]>([]);
@@ -41,13 +37,14 @@ function Home() {
       ) : (
         <Style.Container>
           {pokemons.map(pokemon => (
-            <Pokemon
-              key={pokemon.id}
-              name={pokemon.name}
-              id={pokemon.id}
-              weight={pokemon.weight}
-              height={pokemon.height}
-            />
+            <Link to={`/pokemon/${pokemon.id}`} className="no-decoration" key={pokemon.id}>
+              <Pokemon
+                name={pokemon.name}
+                id={pokemon.id}
+                weight={pokemon.weight}
+                height={pokemon.height}
+              />
+            </Link>
           ))}
         </Style.Container>
       )}

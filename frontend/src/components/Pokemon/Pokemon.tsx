@@ -14,7 +14,14 @@ function Pokemon(props: Props) {
   const urlPrefix = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
   return (
     <Style.Card>
-      <Style.TurnIco src={turnIco} alt="turn-ico" onClick={() => setTurned(!turned)} />
+      <Style.TurnIco
+        src={turnIco}
+        alt="turn-ico"
+        onClick={event => {
+          event.preventDefault();
+          setTurned(!turned);
+        }}
+      />
       <Style.Header>{props.name}</Style.Header>
       <img src={`${urlPrefix}${turned ? '/back/' : '/'}${props.id}.png`} alt={props.name} />
       <p>Id: {props.id}</p>
