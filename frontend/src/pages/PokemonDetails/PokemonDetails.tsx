@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import PokemonCaracteristics from '../../PokemonCaracteristics';
+import { PokemonCaracteristics } from 'src/pages/Home/Home';
 import { makeGetRequest } from 'services/networking/request';
-import loader from '../../loader.svg';
-import Style from './DetailedCard.style';
+import { Container, ImageRow, Header, Caracteristics } from './PokemonDetails.style';
+import Loader from 'components/Loader';
 
 type urlParams = { id: string };
 
-function DetailedCard({ match }: RouteComponentProps<urlParams>) {
+function PokemonDetails({ match }: RouteComponentProps<urlParams>) {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState<PokemonCaracteristics>({
@@ -34,27 +34,34 @@ function DetailedCard({ match }: RouteComponentProps<urlParams>) {
   });
 
   return (
-    <Style.Container>
+    <Container>
       {error ? (
         <p>Une erreur est survenue</p>
       ) : loading ? (
-        <img src={loader} alt="loader" width="200" />
+        <Loader />
       ) : (
         <div>
-          <Style.Header>{details.name}</Style.Header>
-          <Style.ImageRow>
+          <Header>{details.name}</Header>
+          <ImageRow>
             <img src={`${urlPrefix}/${details.id}.png`} alt={`${details.name}`} />
             <img src={`${urlPrefix}/back/${details.id}.png`} alt={`${details.name}-back`} />
-          </Style.ImageRow>
-          <Style.Caracteristics>
+          </ImageRow>
+          <ImageRow>
+            <img src={`${urlPrefix}/shiny/${details.id}.png`} alt={`shiny-${details.name}`} />
+            <img
+              src={`${urlPrefix}/back/shiny/${details.id}.png`}
+              alt={`back-shiny-${details.name}`}
+            />
+          </ImageRow>
+          <Caracteristics>
             <p>Height: {details.height}</p>
             <p>Weight: {details.weight}</p>
             <p>Id: {details.id}</p>
-          </Style.Caracteristics>
+          </Caracteristics>
         </div>
       )}
-    </Style.Container>
+    </Container>
   );
 }
 
-export default DetailedCard;
+export default PokemonDetails;

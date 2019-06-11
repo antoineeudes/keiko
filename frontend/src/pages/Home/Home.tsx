@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Pokemon from 'components/Pokemon';
-import { makeGetRequest } from '../../services/networking/request';
-import Style from './Home.style';
-import loader from '../../loader.svg';
-import PokemonCaracteristics from '../../PokemonCaracteristics';
-import { Link } from 'react-router-dom';
-import './Link.css';
+import { makeGetRequest } from 'services/networking/request';
+import { Intro, Header, Link, Container } from './Home.style';
+import Loader from 'components/Loader';
+
+export interface PokemonCaracteristics {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+}
 
 function Home() {
   const [pokemons, setPokemons] = useState<PokemonCaracteristics[]>([]);
@@ -28,14 +32,14 @@ function Home() {
   });
 
   return (
-    <Style.Intro>
-      <Style.Header>Pokedex</Style.Header>
+    <Intro>
+      <Header>Pokedex</Header>
       {error ? (
         <p>Une erreur est survenue</p>
       ) : loading ? (
-        <img src={loader} alt="loader" width="200" />
+        <Loader />
       ) : (
-        <Style.Container>
+        <Container>
           {pokemons.map(pokemon => (
             <Link to={`/pokemon/${pokemon.id}`} className="no-decoration" key={pokemon.id}>
               <Pokemon
@@ -46,10 +50,9 @@ function Home() {
               />
             </Link>
           ))}
-        </Style.Container>
+        </Container>
       )}
-    </Style.Intro>
+    </Intro>
   );
 }
-
 export default Home;
