@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Pokemon from 'components/Pokemon';
-import { makeGetRequest } from '../../services/networking/request';
-import Style from './Home.style';
-import loader from '../../loader.svg';
+import { makeGetRequest } from 'services/networking/request';
+import { Intro, Header, Link, Container } from './Home.style';
+import Loader from 'components/Loader';
 
-interface PokemonCaracteristics {
+export interface PokemonCaracteristics {
   id: number;
   name: string;
   height: number;
@@ -32,27 +32,27 @@ function Home() {
   });
 
   return (
-    <Style.Intro>
-      <Style.Header>Pokedex</Style.Header>
+    <Intro>
+      <Header>Pokedex</Header>
       {error ? (
         <p>Une erreur est survenue</p>
       ) : loading ? (
-        <img src={loader} alt="loader" width="200" />
+        <Loader />
       ) : (
-        <Style.Container>
+        <Container>
           {pokemons.map(pokemon => (
-            <Pokemon
-              key={pokemon.id}
-              name={pokemon.name}
-              id={pokemon.id}
-              weight={pokemon.weight}
-              height={pokemon.height}
-            />
+            <Link to={`/pokemon/${pokemon.id}`} className="no-decoration" key={pokemon.id}>
+              <Pokemon
+                name={pokemon.name}
+                id={pokemon.id}
+                weight={pokemon.weight}
+                height={pokemon.height}
+              />
+            </Link>
           ))}
-        </Style.Container>
+        </Container>
       )}
-    </Style.Intro>
+    </Intro>
   );
 }
-
 export default Home;
