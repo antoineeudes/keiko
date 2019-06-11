@@ -22,6 +22,7 @@ export const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
 `;
 Container.displayName = 'Container';
 
@@ -30,3 +31,15 @@ export const Link = styled(RouterLink)`
   color: black;
 `;
 Link.displayName = 'Link';
+
+export const LeftArrow = styled.p`
+  left: 20px;
+  top: 100px;
+  position: absolute;
+`;
+
+export const RightArrow = styled.div`
+  right: 20px;
+  top: 100px;
+  position: absolute;
+`;
