@@ -18,7 +18,6 @@ function Home({ match }: RouteComponentProps<urlParams>) {
   const [pokemons, setPokemons] = useState<PokemonCaracteristics[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const urlIcons = 'https://img.icons8.com/metro/50/000000/';
   let page = 1;
   if (match.params.page != undefined) {
     page = Number(match.params.page);
