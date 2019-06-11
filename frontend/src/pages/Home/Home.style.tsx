@@ -1,30 +1,26 @@
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
-export const Intro = styled.div`
+export const PageContainer = styled.div`
   font-size: 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px;
+  max-width: 95%;
+  margin: auto;
+  padding: 30px;
   font-family: 'PokemonGB';
 `;
-Intro.displayName = 'displayName';
+PageContainer.displayName = 'PageContainer';
 
-export const Header = styled.h1`
+export const Header = styled.div`
+  padding-bottom: 10px;
   font-size: 50px;
-  margin: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 Header.displayName = 'Header';
-
-export const Container = styled.div`
-  flex-direction: row;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  position: relative;
-`;
-Container.displayName = 'Container';
 
 export const Link = styled(RouterLink)`
   text-decoration: none;
@@ -32,16 +28,9 @@ export const Link = styled(RouterLink)`
 `;
 Link.displayName = 'Link';
 
-export const LeftArrow = styled.p`
-  left: 20px;
-  top: 100px;
-  position: absolute;
-  font-size: 50px;
+export const PokemonList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
-
-export const RightArrow = styled.p`
-  right: 20px;
-  top: 100px;
-  position: absolute;
-  font-size: 50px;
-`;
+PokemonList.displayName = 'PokemonList';

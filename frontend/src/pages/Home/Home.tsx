@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pokemon from 'components/Pokemon';
 import { RouteComponentProps } from 'react-router-dom';
 import { makeGetRequest } from 'services/networking/request';
-import { Intro, Header, Link, Container, LeftArrow, RightArrow } from './Home.style';
+import { PageContainer, Header, Link, PokemonList } from './Home.style';
 import Loader from 'components/Loader';
 
 export interface PokemonCaracteristics {
@@ -43,35 +43,39 @@ function Home({ match }: RouteComponentProps<urlParams>) {
   );
 
   return (
-    <Intro>
-      <Header>Pokedex</Header>
+    <PageContainer>
+      <Header>
+        {!error && !loading && page > 1 ? (
+          <Link to={`/pokedex/${page - 1}`}>&lsaquo;</Link>
+        ) : (
+          <div />
+        )}
+        <h1>Pokedex</h1>
+        {!error && !loading && page < 6 ? (
+          <Link to={`/pokedex/${page + 1}`}>&rsaquo;</Link>
+        ) : (
+          <div />
+        )}
+      </Header>
       {error ? (
         <p>Une erreur est survenue</p>
       ) : loading ? (
         <Loader />
       ) : (
-        <div>
-          <LeftArrow>
-            {page == 1 ? <div /> : <Link to={`/pokedex/${(page - 1).toString()}`}>&lsaquo;</Link>}
-          </LeftArrow>
-          <RightArrow>
-            {page == 6 ? <div /> : <Link to={`/pokedex/${(page + 1).toString()}`}>&rsaquo;</Link>}
-          </RightArrow>
-          <Container>
-            {pokemons.map(pokemon => (
-              <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
-                <Pokemon
-                  name={pokemon.name}
-                  id={pokemon.id}
-                  weight={pokemon.weight}
-                  height={pokemon.height}
-                />
-              </Link>
-            ))}
-          </Container>
-        </div>
+        <PokemonList>
+          {pokemons.map(pokemon => (
+            <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+              <Pokemon
+                name={pokemon.name}
+                id={pokemon.id}
+                weight={pokemon.weight}
+                height={pokemon.height}
+              />
+            </Link>
+          ))}
+        </PokemonList>
       )}
-    </Intro>
+    </PageContainer>
   );
 }
 
