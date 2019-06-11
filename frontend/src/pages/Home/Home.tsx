@@ -19,16 +19,15 @@ function Home({ match }: RouteComponentProps<urlParams>) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const urlIcons = 'https://img.icons8.com/metro/50/000000/';
-  let page = Number(match.params.page);
-  if (match.params.page == undefined) {
-    page = 1;
-  } else {
+  let page = 1;
+  if (match.params.page != undefined) {
     page = Number(match.params.page);
   }
 
   async function fetchPokemons() {
     try {
-      const response = await makeGetRequest(`/pokemon?page=${page.toString()}`);
+      setLoading(true);
+      const response = await makeGetRequest(`/pokemon?page=${page}`);
       setPokemons(response.body);
       setLoading(false);
     } catch {
@@ -37,9 +36,12 @@ function Home({ match }: RouteComponentProps<urlParams>) {
     }
   }
 
-  useEffect(() => {
-    fetchPokemons();
-  });
+  useEffect(
+    () => {
+      fetchPokemons();
+    },
+    [match.params.page],
+  );
 
   return (
     <Intro>
@@ -51,34 +53,10 @@ function Home({ match }: RouteComponentProps<urlParams>) {
       ) : (
         <div>
           <LeftArrow>
-            {page == 1 ? (
-              <div />
-            ) : (
-              <Link
-                to={`/pokedex/${(page - 1).toString()}`}
-                onClick={() => {
-                  setPokemons([]);
-                  setLoading(true);
-                }}
-              >
-                <img src={`${urlIcons}chevron-left.png`} width="30" />
-              </Link>
-            )}
+            {page == 1 ? <div /> : <Link to={`/pokedex/${(page - 1).toString()}`}>&lsaquo;</Link>}
           </LeftArrow>
           <RightArrow>
-            {page == 6 ? (
-              <div />
-            ) : (
-              <Link
-                to={`/pokedex/${(page + 1).toString()}`}
-                onClick={() => {
-                  setPokemons([]);
-                  setLoading(true);
-                }}
-              >
-                <img src={`${urlIcons}chevron-right.png`} width="30" />
-              </Link>
-            )}
+            {page == 6 ? <div /> : <Link to={`/pokedex/${(page + 1).toString()}`}>&rsaquo;</Link>}
           </RightArrow>
           <Container>
             {pokemons.map(pokemon => (

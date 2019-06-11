@@ -36,10 +36,12 @@ export const LeftArrow = styled.p`
   left: 20px;
   top: 100px;
   position: absolute;
+  font-size: 50px;
 `;
 
-export const RightArrow = styled.div`
+export const RightArrow = styled.p`
   right: 20px;
   top: 100px;
   position: absolute;
+  font-size: 50px;
 `;
