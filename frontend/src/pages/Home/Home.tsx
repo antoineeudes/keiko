@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Pokemon from 'components/Pokemon';
+import { RouteComponentProps } from 'react-router-dom';
 import { makeGetRequest } from 'services/networking/request';
-import { Intro, Header, Link, Container } from './Home.style';
+import { PageContainer, Header, Link, PokemonList } from './Home.style';
 import Loader from 'components/Loader';
 
 export interface PokemonCaracteristics {
@@ -11,14 +12,21 @@ export interface PokemonCaracteristics {
   weight: number;
 }
 
-function Home() {
+type urlParams = { page: string };
+
+function Home({ match }: RouteComponentProps<urlParams>) {
   const [pokemons, setPokemons] = useState<PokemonCaracteristics[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  let page = 1;
+  if (match.params.page != undefined) {
+    page = Number(match.params.page);
+  }
 
   async function fetchPokemons() {
     try {
-      const response = await makeGetRequest('/pokemon');
+      setLoading(true);
+      const response = await makeGetRequest(`/pokemon?page=${page}`);
       setPokemons(response.body);
       setLoading(false);
     } catch {
@@ -27,21 +35,36 @@ function Home() {
     }
   }
 
-  useEffect(() => {
-    fetchPokemons();
-  });
+  useEffect(
+    () => {
+      fetchPokemons();
+    },
+    [match.params.page],
+  );
 
   return (
-    <Intro>
-      <Header>Pokedex</Header>
+    <PageContainer>
+      <Header>
+        {!error && !loading && page > 1 ? (
+          <Link to={`/pokedex/${page - 1}`}>&lsaquo;</Link>
+        ) : (
+          <div />
+        )}
+        <h1>Pokedex</h1>
+        {!error && !loading && page < 6 ? (
+          <Link to={`/pokedex/${page + 1}`}>&rsaquo;</Link>
+        ) : (
+          <div />
+        )}
+      </Header>
       {error ? (
         <p>Une erreur est survenue</p>
       ) : loading ? (
         <Loader />
       ) : (
-        <Container>
+        <PokemonList>
           {pokemons.map(pokemon => (
-            <Link to={`/pokemon/${pokemon.id}`} className="no-decoration" key={pokemon.id}>
+            <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
               <Pokemon
                 name={pokemon.name}
                 id={pokemon.id}
@@ -50,9 +73,10 @@ function Home() {
               />
             </Link>
           ))}
-        </Container>
+        </PokemonList>
       )}
-    </Intro>
+    </PageContainer>
   );
 }
+
 export default Home;
