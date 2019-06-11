@@ -9,11 +9,13 @@ export const Intro = styled.div`
   padding: 10px;
   font-family: 'PokemonGB';
 `;
+Intro.displayName = 'displayName';
 
 export const Header = styled.h1`
   font-size: 50px;
   margin: 30px;
 `;
+Header.displayName = 'Header';
 
 export const Container = styled.div`
   flex-direction: row;
@@ -21,13 +23,10 @@ export const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 `;
+Container.displayName = 'Container';
 
 export const Link = styled(RouterLink)`
   text-decoration: none;
   color: black;
 `;
-
 Link.displayName = 'Link';
-Container.displayName = 'Container';
-Header.displayName = 'Header';
-Intro.displayName = 'displayName';

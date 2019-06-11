@@ -11,18 +11,18 @@ export const Card = styled.div`
   height: 175px;
   width: 250px;
 `;
+Card.displayName = 'Card';
 
 export const Header = styled.h1`
   margin-top: 5px;
   font-size: 20px;
   text-transform: capitalize;
 `;
+Header.displayName = 'Header';
+
 export const TurnIco = styled.img`
   position: absolute;
   top: 2px;
   right: 2px;
 `;
-
-Card.displayName = 'Card';
 TurnIco.displayName = 'TurnIco';
-Header.displayName = 'Header';
