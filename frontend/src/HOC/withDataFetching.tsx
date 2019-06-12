@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loader from 'components/Loader';
-import { PageContainer } from '../pages/Home/Home.style';
+import { PageContainer } from 'pages/Home/Home.style';
 
 interface WithDataFetchingProps {
   loading: boolean;
