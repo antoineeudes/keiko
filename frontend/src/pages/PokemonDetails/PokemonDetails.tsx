@@ -1,66 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { PokemonCaracteristics } from 'src/pages/Home/Home';
-import { makeGetRequest } from 'services/networking/request';
-import { Container, ImageRow, Header, Caracteristics } from './PokemonDetails.style';
-import Loader from 'components/Loader';
+import { PokemonCaracteristics } from 'pages/Home/Home';
+import { ImageRow, Header, Caracteristics } from './PokemonDetails.style';
 
 type urlParams = { id: string };
 
-function PokemonDetails({ match }: RouteComponentProps<urlParams>) {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [details, setDetails] = useState<PokemonCaracteristics>({
-    id: 0,
-    name: '',
-    weight: 0,
-    height: 0,
-  });
+export interface PokemonDetailsProps extends RouteComponentProps<urlParams> {
+  details: PokemonCaracteristics;
+}
+
+function PokemonDetails(props: PokemonDetailsProps) {
   const urlPrefix = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
 
-  async function fetchPokemonDetails(id: string) {
-    try {
-      const response = await makeGetRequest(`/pokemon/${id}`);
-      setDetails(response.body);
-      setLoading(false);
-    } catch {
-      setError(false);
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchPokemonDetails(match.params.id);
-  });
-
   return (
-    <Container>
-      {error ? (
-        <p>Une erreur est survenue</p>
-      ) : loading ? (
-        <Loader />
-      ) : (
-        <div>
-          <Header>{details.name}</Header>
-          <ImageRow>
-            <img src={`${urlPrefix}/${details.id}.png`} alt={`${details.name}`} />
-            <img src={`${urlPrefix}/back/${details.id}.png`} alt={`${details.name}-back`} />
-          </ImageRow>
-          <ImageRow>
-            <img src={`${urlPrefix}/shiny/${details.id}.png`} alt={`shiny-${details.name}`} />
-            <img
-              src={`${urlPrefix}/back/shiny/${details.id}.png`}
-              alt={`back-shiny-${details.name}`}
-            />
-          </ImageRow>
-          <Caracteristics>
-            <p>Height: {details.height}</p>
-            <p>Weight: {details.weight}</p>
-            <p>Id: {details.id}</p>
-          </Caracteristics>
-        </div>
-      )}
-    </Container>
+    <Fragment>
+      <Header>{props.details.name}</Header>
+      <ImageRow>
+        <img src={`${urlPrefix}/${props.details.id}.png`} alt={`${props.details.name}`} />
+        <img src={`${urlPrefix}/back/${props.details.id}.png`} alt={`${props.details.name}-back`} />
+      </ImageRow>
+      <ImageRow>
+        <img
+          src={`${urlPrefix}/shiny/${props.details.id}.png`}
+          alt={`shiny-${props.details.name}`}
+        />
+        <img
+          src={`${urlPrefix}/back/shiny/${props.details.id}.png`}
+          alt={`back-shiny-${props.details.name}`}
+        />
+      </ImageRow>
+      <Caracteristics>
+        <p>Height: {props.details.height}</p>
+        <p>Weight: {props.details.weight}</p>
+        <p>Id: {props.details.id}</p>
+      </Caracteristics>
+    </Fragment>
   );
 }
 

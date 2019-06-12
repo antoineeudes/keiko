@@ -3,6 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "components/*": ["src/components/*"],
+      "pages/*": ["src/pages/*"],
+      "HOC/*": ["src/HOC/*"],
       "__fixtures__/*": ["src/__fixtures__/*"],
       "__mocks__/*": ["src/__mocks__/*"],
       "redux/*": ["src/redux/*"],
