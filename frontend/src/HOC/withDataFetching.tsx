@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Loader from 'components/Loader';
+import { PageContainer } from '../pages/Home/Home.style';
 
 interface WithDataFetchingProps {
   loading: boolean;
@@ -11,21 +12,34 @@ const WithDataFetching = <Props extends object>(
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
-  let loading = true;
-  let error = false;
-  try {
-    const response = fetchFunction(props);
-    // console.log(response);
-    console.log(props);
-    loading = false;
-  } catch {
-    loading = false;
-    error = true;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [data, setData] = useState<any>({});
+
+  async function updateState() {
+    try {
+      setLoading(true);
+      const response = await fetchFunction(props);
+      setData(response.body);
+      setLoading(false);
+    } catch {
+      setError(true);
+      setLoading(false);
+    }
   }
-  console.log(error);
+
+  useEffect(() => {
+    updateState();
+  }, shouldCallEffect(props));
+
+  const customProps = { [dataName]: data };
+
   return (
-    (loading && <Loader />) ||
-    (error && <p>Une erreur est survenue</p>) || <BaseComponent {...props} />
+    <PageContainer>
+      {(loading && <Loader />) || (error && <p>Une erreur est survenue</p>) || (
+        <BaseComponent {...props} {...customProps} />
+      )}
+    </PageContainer>
   );
 };
 
