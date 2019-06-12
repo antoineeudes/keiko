@@ -6,9 +6,9 @@ function fetchPokemonDetails(props: PokemonDetailsProps) {
   return makeGetRequest(`/pokemon/${props.match.params.id}`);
 }
 
-const PokemonDetailsShouldCallEffect = (props: PokemonDetailsProps) => [props.match.params.id];
+const shouldCallPokemonDetailsEffect = (props: PokemonDetailsProps) => [props.match.params.id];
 
-const PokemonDetailsContainer = HOC('details', fetchPokemonDetails, PokemonDetailsShouldCallEffect)(
+const PokemonDetailsContainer = HOC('details', fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
   PokemonDetailsWrap,
 );
 
