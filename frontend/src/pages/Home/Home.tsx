@@ -1,16 +1,43 @@
-import { makeGetRequest } from 'services/networking/request';
-import HOC from '../../HOC';
-import HomeWrap, { HomeProps } from './HomeWrap';
+import React, { Fragment } from 'react';
+import Pokemon from 'components/Pokemon';
+import { RouteComponentProps } from 'react-router-dom';
+import { Header, Link, PokemonList } from './Home.style';
 
-function fetchPokemons(props: HomeProps) {
-  let page = 1;
-  if (props.match.params.page != undefined) {
-    page = Number(props.match.params.page);
-  }
-  return makeGetRequest(`/pokemon?page=${page}`);
+export interface PokemonCaracteristics {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
 }
 
-const HomeShouldCallEffect = (props: HomeProps) => [props.match.params.page];
-const Home = HOC('pokemons', fetchPokemons, HomeShouldCallEffect)(HomeWrap);
+type urlParams = { page: string };
 
-export default Home;
+export interface HomeProps extends RouteComponentProps<urlParams> {
+  pokemons: PokemonCaracteristics[];
+}
+
+export default function Home(props: HomeProps) {
+  const page = Number(props.match.params.page);
+  return (
+    <Fragment>
+      <Header>
+        {page > 1 ? <Link to={`/pokedex/${page - 1}`}>&lsaquo;</Link> : <div />}
+        <h1>Pokedex</h1>
+        {page < 6 ? <Link to={`/pokedex/${page + 1}`}>&rsaquo;</Link> : <div />}
+      </Header>
+
+      <PokemonList>
+        {props.pokemons.map(pokemon => (
+          <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
+            <Pokemon
+              name={pokemon.name}
+              id={pokemon.id}
+              weight={pokemon.weight}
+              height={pokemon.height}
+            />
+          </Link>
+        ))}
+      </PokemonList>
+    </Fragment>
+  );
+}
