@@ -1,6 +1,6 @@
 import { makeGetRequest } from 'services/networking/request';
 import HOC from 'HOC/withDataFetching';
-import HomeWrap, { HomeProps } from './Home';
+import Home, { HomeProps } from './Home';
 
 function fetchPokemons(props: HomeProps) {
   let page = 1;
@@ -11,6 +11,6 @@ function fetchPokemons(props: HomeProps) {
 }
 
 const shouldCallHomeEffect = (props: HomeProps) => [props.match.params.page];
-const HomeContainer = HOC('pokemons', fetchPokemons, shouldCallHomeEffect)(HomeWrap);
+const HomeContainer = HOC('pokemons', fetchPokemons, shouldCallHomeEffect)(Home);
 
 export default HomeContainer;

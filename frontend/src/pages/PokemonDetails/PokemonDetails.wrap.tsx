@@ -1,5 +1,5 @@
 import { makeGetRequest } from 'services/networking/request';
-import PokemonDetailsWrap, { PokemonDetailsProps } from './PokemonDetails';
+import PokemonDetails, { PokemonDetailsProps } from './PokemonDetails';
 import HOC from 'HOC/withDataFetching';
 
 function fetchPokemonDetails(props: PokemonDetailsProps) {
@@ -9,7 +9,7 @@ function fetchPokemonDetails(props: PokemonDetailsProps) {
 const shouldCallPokemonDetailsEffect = (props: PokemonDetailsProps) => [props.match.params.id];
 
 const PokemonDetailsContainer = HOC('details', fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
-  PokemonDetailsWrap,
+  PokemonDetails,
 );
 
 export default PokemonDetailsContainer;
