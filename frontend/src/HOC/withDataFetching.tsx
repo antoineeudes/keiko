@@ -15,7 +15,8 @@ const WithDataFetching = <Props extends object>(
   let error = false;
   try {
     const response = fetchFunction(props);
-    console.log(response);
+    // console.log(response);
+    console.log(props);
     loading = false;
   } catch {
     loading = false;

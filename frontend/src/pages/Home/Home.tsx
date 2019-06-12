@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { makeGetRequest } from 'services/networking/request';
 // import { PageContainer, Header, Link, PokemonList } from './Home.style';
-import HOC from 'HOC';
+import HOC from '../../HOC';
 
 export interface PokemonCaracteristics {
   id: number;
@@ -17,9 +17,13 @@ type urlParams = { page: string };
 interface HomeProps {
   pokemons: PokemonCaracteristics[];
   match: RouteComponentProps<urlParams>;
+  // match: RouteComponentProps<urlParams>;
 }
 
-function Home({ match }: RouteComponentProps<urlParams>) {
+// function Home({ match }: RouteComponentProps<urlParams>) {
+//   return <h1>Component Rendered</h1>;
+// }
+function Home(props: HomeProps & RouteComponentProps<urlParams>) {
   return <h1>Component Rendered</h1>;
 }
 
@@ -31,16 +35,24 @@ function Home({ match }: RouteComponentProps<urlParams>) {
 //   return makeGetRequest(`/pokemon?page=${page}`);
 // }
 
-async function fetchPokemons({ match }: RouteComponentProps<urlParams>) {
+// async function fetchPokemons({ match }: RouteComponentProps<urlParams>) {
+//   let page = 1;
+//   if (match.params.page != undefined) {
+//     page = Number(match.params.page);
+//   }
+//   return makeGetRequest(`/pokemon?page=${page}`);
+// }
+
+async function fetchPokemons(props: RouteComponentProps<urlParams> & HomeProps) {
   let page = 1;
-  if (match.params.page != undefined) {
-    page = Number(match.params.page);
+  if (props.location.pathname != undefined) {
+    page = Number(props.location.pathname);
   }
-  return makeGetRequest(`/pokemon?page=${page}`);
+  const response = await makeGetRequest(`/pokemon?page=${page}`);
 }
 
-const oneShouldCallEffect = (props: HomeProps) => [undefined];
+const oneShouldCallEffect = (props: RouteComponentProps<urlParams> & HomeProps) => [undefined];
 
-const HomeWrap = HOC(fetchPokemons, oneShouldCallEffect)(Home);
+const HomeWrap = HOC('', fetchPokemons, oneShouldCallEffect)(Home);
 
 export default HomeWrap;
