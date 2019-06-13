@@ -14,13 +14,12 @@ const WithDataFetching = <Props extends object>(
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [data, setData] = useState<any>({});
 
   async function updateState() {
     try {
       setLoading(true);
-      const response = await fetchFunction(props);
-      setData(response.body);
+      await fetchFunction(props);
+      console.log(props);
       setLoading(false);
     } catch {
       setError(true);
@@ -32,12 +31,10 @@ const WithDataFetching = <Props extends object>(
     updateState();
   }, shouldCallEffect(props));
 
-  const customProps = { [dataName]: data };
-
   return (
     <PageContainer>
       {(loading && <Loader />) || (error && <p>Une erreur est survenue</p>) || (
-        <BaseComponent {...props} {...customProps} />
+        <BaseComponent {...props} />
       )}
     </PageContainer>
   );
