@@ -2,11 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Loader from 'components/Loader';
 import { PageContainer } from 'pages/Home/Home.style';
 
-interface WithDataFetchingProps {
-  loading: boolean;
-  error: boolean;
-}
-
 const WithDataFetching = <Props extends object>(
   dataName: string,
   fetchFunction: (props: Props) => any,
@@ -19,7 +14,6 @@ const WithDataFetching = <Props extends object>(
     try {
       setLoading(true);
       await fetchFunction(props);
-      console.log(props);
       setLoading(false);
     } catch {
       setError(true);

@@ -17,7 +17,7 @@ async function fetchPokemons(props: HomeProps) {
 const shouldCallHomeEffect = (props: HomeProps) => [props.match.params.page];
 const HomeContainer = HOC('pokemons', fetchPokemons, shouldCallHomeEffect)(Home);
 
-function mapStateToProps(state: Readonly<Record<string, PokemonCaracteristics>>) {
+function mapStateToProps(state: Readonly<PokemonsObject>) {
   return { pokemons: Object.values(state.pokemon) };
 }
 
