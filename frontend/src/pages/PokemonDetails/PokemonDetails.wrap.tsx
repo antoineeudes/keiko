@@ -22,8 +22,7 @@ function getPokemon(state: Readonly<PokemonsObject>) {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPokemonSuccess: (pokemon: PokemonCaracteristics) =>
-      dispatch(fetchPokemonSuccess({ pokemon: { [pokemon.id]: pokemon } })),
+    fetchPokemonSuccess: (pokemon: PokemonCaracteristics) => dispatch(fetchPokemonSuccess(pokemon)),
   };
 };
 

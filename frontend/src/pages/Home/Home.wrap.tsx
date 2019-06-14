@@ -23,8 +23,7 @@ function mapStateToProps(state: Readonly<PokemonsObject>) {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPokemonsSuccess: (pokemon: PokemonsObject) =>
-      dispatch(fetchPokemonsSuccess({ pokemon: pokemon })),
+    fetchPokemonsSuccess: (pokemon: PokemonsObject) => dispatch(fetchPokemonsSuccess(pokemon)),
   };
 };
 

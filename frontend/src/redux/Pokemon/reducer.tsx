@@ -1,21 +1,20 @@
 import { PokemonsObject } from 'pages/Home/Home';
 import { ActionType, getType } from 'typesafe-actions';
-import { AnyAction } from 'redux';
-import { fetchPokemonsSuccess, fetchPokemonSuccess } from './actions';
+import {
+  fetchPokemonsSuccess,
+  fetchPokemonSuccess,
+  FETCH_POKEMONS_SUCCESS,
+  FETCH_POKEMON_SUCCESS,
+} from './actions';
 
-export type PokemonAction = ActionType<typeof fetchPokemonsSuccess | typeof fetchPokemonSuccess>;
+type PokemonAction = ActionType<typeof fetchPokemonsSuccess | typeof fetchPokemonSuccess>;
 
-export type PokemonState = PokemonsObject;
+const initialState: PokemonsObject = {};
 
-const initialState: PokemonState = {};
-
-const reducer = (state: PokemonState = initialState, action: AnyAction) => {
-  const typedAction = action as PokemonAction;
-  switch (typedAction.type) {
-    case getType(fetchPokemonsSuccess):
-      return typedAction.payload.pokemon;
-    case getType(fetchPokemonSuccess):
-      return typedAction.payload.pokemon;
+const reducer = (state: PokemonsObject = initialState, action: PokemonAction) => {
+  switch (action.type) {
+    case FETCH_POKEMONS_SUCCESS || FETCH_POKEMON_SUCCESS:
+      return action.pokemon;
     default:
       return state;
   }

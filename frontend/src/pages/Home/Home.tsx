@@ -26,7 +26,6 @@ export default function Home(props: HomeProps) {
   if (props.match.params.page != undefined) {
     page = Number(props.match.params.page);
   }
-  console.log(props.pokemons);
   return (
     <Fragment>
       <Header>

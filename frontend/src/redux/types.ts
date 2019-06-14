@@ -1,8 +1,8 @@
 import { LoginAction, LoginState } from './Login';
-import { PokemonState } from './Pokemon';
+import { PokemonsObject } from 'pages/Home/Home';
 
 export type RootState = Readonly<{
   login: LoginState;
-  pokemon: PokemonState;
+  pokemon: PokemonsObject;
 }>;
 export type RootAction = LoginAction;
