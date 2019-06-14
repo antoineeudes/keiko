@@ -17,7 +17,7 @@ export interface PokemonCaracteristics {
 type urlParams = { page: string };
 
 export interface HomeProps extends RouteComponentProps<urlParams> {
-  pokemons: PokemonsObject;
+  pokemons: PokemonCaracteristics[];
   fetchPokemonsSuccess: any;
 }
 
@@ -26,6 +26,7 @@ export default function Home(props: HomeProps) {
   if (props.match.params.page != undefined) {
     page = Number(props.match.params.page);
   }
+  console.log(props.pokemons);
   return (
     <Fragment>
       <Header>
@@ -35,7 +36,7 @@ export default function Home(props: HomeProps) {
       </Header>
 
       <PokemonList>
-        {Object.values(props.pokemons).map(pokemon => (
+        {props.pokemons.map(pokemon => (
           <Link to={`/pokemon/${pokemon.id}`} key={pokemon.id}>
             <Pokemon
               name={pokemon.name}

@@ -30,8 +30,8 @@ function PokemonDetails(props: PokemonDetailsProps) {
         />
       </ImageRow>
       <Caracteristics>
-        <p>Height: {props.pokemon.height}</p>
-        <p>Weight: {props.pokemon.weight}</p>
+        <p>Height: {props.pokemon.height * 10}</p>
+        <p>Weight: {props.pokemon.weight / 10}</p>
         <p>Id: {props.pokemon.id}</p>
       </Caracteristics>
     </Fragment>
