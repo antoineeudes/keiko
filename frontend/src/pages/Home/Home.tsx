@@ -3,6 +3,10 @@ import Pokemon from 'components/Pokemon';
 import { RouteComponentProps } from 'react-router-dom';
 import { Header, Link, PokemonList } from './Home.style';
 
+export interface PokemonsObject {
+  [id: string]: PokemonCaracteristics;
+}
+
 export interface PokemonCaracteristics {
   id: number;
   name: string;
@@ -14,10 +18,14 @@ type urlParams = { page: string };
 
 export interface HomeProps extends RouteComponentProps<urlParams> {
   pokemons: PokemonCaracteristics[];
+  fetchPokemonsSuccess: any;
 }
 
 export default function Home(props: HomeProps) {
-  const page = Number(props.match.params.page);
+  let page = 1;
+  if (props.match.params.page != undefined) {
+    page = Number(props.match.params.page);
+  }
   return (
     <Fragment>
       <Header>

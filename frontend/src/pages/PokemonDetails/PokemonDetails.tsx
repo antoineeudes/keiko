@@ -6,33 +6,33 @@ import { ImageRow, Header, Caracteristics } from './PokemonDetails.style';
 type urlParams = { id: string };
 
 export interface PokemonDetailsProps extends RouteComponentProps<urlParams> {
-  details: PokemonCaracteristics;
+  pokemon: PokemonCaracteristics;
+  fetchPokemonSuccess: any;
 }
 
 function PokemonDetails(props: PokemonDetailsProps) {
   const urlPrefix = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
-
   return (
     <Fragment>
-      <Header>{props.details.name}</Header>
+      <Header>{props.pokemon.name}</Header>
       <ImageRow>
-        <img src={`${urlPrefix}/${props.details.id}.png`} alt={`${props.details.name}`} />
-        <img src={`${urlPrefix}/back/${props.details.id}.png`} alt={`${props.details.name}-back`} />
+        <img src={`${urlPrefix}/${props.pokemon.id}.png`} alt={`${props.pokemon.name}`} />
+        <img src={`${urlPrefix}/back/${props.pokemon.id}.png`} alt={`${props.pokemon.name}-back`} />
       </ImageRow>
       <ImageRow>
         <img
-          src={`${urlPrefix}/shiny/${props.details.id}.png`}
-          alt={`shiny-${props.details.name}`}
+          src={`${urlPrefix}/shiny/${props.pokemon.id}.png`}
+          alt={`shiny-${props.pokemon.name}`}
         />
         <img
-          src={`${urlPrefix}/back/shiny/${props.details.id}.png`}
-          alt={`back-shiny-${props.details.name}`}
+          src={`${urlPrefix}/back/shiny/${props.pokemon.id}.png`}
+          alt={`back-shiny-${props.pokemon.name}`}
         />
       </ImageRow>
       <Caracteristics>
-        <p>Height: {props.details.height}</p>
-        <p>Weight: {props.details.weight}</p>
-        <p>Id: {props.details.id}</p>
+        <p>Height: {props.pokemon.height * 10}</p>
+        <p>Weight: {props.pokemon.weight / 10}</p>
+        <p>Id: {props.pokemon.id}</p>
       </Caracteristics>
     </Fragment>
   );
