@@ -1,4 +1,4 @@
-import { PokemonCaracteristics, PokemonsObject } from 'pages/Home/Home';
+import { PokemonsObject } from 'pages/Home/Home';
 import { ActionType, getType } from 'typesafe-actions';
 import { AnyAction } from 'redux';
 import { fetchPokemonsSuccess, fetchPokemonSuccess } from './actions';

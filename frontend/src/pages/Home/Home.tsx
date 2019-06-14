@@ -17,7 +17,7 @@ export interface PokemonCaracteristics {
 type urlParams = { page: string };
 
 export interface HomeProps extends RouteComponentProps<urlParams> {
-  pokemons: PokemonsObject | any[];
+  pokemons: PokemonsObject;
   fetchPokemonsSuccess: any;
 }
 

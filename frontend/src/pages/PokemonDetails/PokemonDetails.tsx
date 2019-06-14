@@ -1,33 +1,38 @@
 import React, { Fragment } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { PokemonCaracteristics, PokemonsObject } from 'pages/Home/Home';
+import { PokemonCaracteristics } from 'pages/Home/Home';
 import { ImageRow, Header, Caracteristics } from './PokemonDetails.style';
 
 type urlParams = { id: string };
 
 export interface PokemonDetailsProps extends RouteComponentProps<urlParams> {
-  details: PokemonsObject;
+  pokemon: PokemonCaracteristics;
   fetchPokemonSuccess: any;
 }
 
 function PokemonDetails(props: PokemonDetailsProps) {
   const urlPrefix = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon';
-  const pokemon = props.details[0];
   return (
     <Fragment>
-      <Header>{pokemon.name}</Header>
+      <Header>{props.pokemon.name}</Header>
       <ImageRow>
-        <img src={`${urlPrefix}/${pokemon.id}.png`} alt={`${pokemon.name}`} />
-        <img src={`${urlPrefix}/back/${pokemon.id}.png`} alt={`${pokemon.name}-back`} />
+        <img src={`${urlPrefix}/${props.pokemon.id}.png`} alt={`${props.pokemon.name}`} />
+        <img src={`${urlPrefix}/back/${props.pokemon.id}.png`} alt={`${props.pokemon.name}-back`} />
       </ImageRow>
       <ImageRow>
-        <img src={`${urlPrefix}/shiny/${pokemon.id}.png`} alt={`shiny-${pokemon.name}`} />
-        <img src={`${urlPrefix}/back/shiny/${pokemon.id}.png`} alt={`back-shiny-${pokemon.name}`} />
+        <img
+          src={`${urlPrefix}/shiny/${props.pokemon.id}.png`}
+          alt={`shiny-${props.pokemon.name}`}
+        />
+        <img
+          src={`${urlPrefix}/back/shiny/${props.pokemon.id}.png`}
+          alt={`back-shiny-${props.pokemon.name}`}
+        />
       </ImageRow>
       <Caracteristics>
-        <p>Height: {pokemon.height}</p>
-        <p>Weight: {pokemon.weight}</p>
-        <p>Id: {pokemon.id}</p>
+        <p>Height: {props.pokemon.height}</p>
+        <p>Weight: {props.pokemon.weight}</p>
+        <p>Id: {props.pokemon.id}</p>
       </Caracteristics>
     </Fragment>
   );
