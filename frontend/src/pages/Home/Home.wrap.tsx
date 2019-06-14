@@ -1,6 +1,6 @@
 import { makeGetRequest } from 'services/networking/request';
 import HOC from 'HOC/withDataFetching';
-import Home, { HomeProps, PokemonCaracteristics, PokemonsObject } from './Home';
+import Home, { HomeProps, PokemonsObject } from './Home';
 import { connect } from 'react-redux';
 import { fetchPokemonsSuccess } from 'redux/Pokemon/actions';
 import normalize from 'services/normalizers/PokemonNormalizer';
