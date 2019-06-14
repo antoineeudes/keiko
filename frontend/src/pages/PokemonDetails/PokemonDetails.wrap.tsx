@@ -12,7 +12,7 @@ async function fetchPokemonDetails(props: PokemonDetailsProps) {
 
 const shouldCallPokemonDetailsEffect = (props: PokemonDetailsProps) => [props.match.params.id];
 
-const PokemonDetailsContainer = HOC('details', fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
+const PokemonDetailsContainer = HOC(fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
   PokemonDetails,
 );
 

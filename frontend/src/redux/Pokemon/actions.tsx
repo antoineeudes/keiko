@@ -10,10 +10,10 @@ export const fetchPokemonsSuccess = (pokemon: PokemonsObject) => {
   };
 };
 
-export const fetchPokemonSuccess = (pokemon: PokemonCaracteristics) => {
-  const newState = { [pokemon.id]: pokemon };
+export const fetchPokemonSuccess = (pokemonCaract: PokemonCaracteristics) => {
+  const pokemon = { [pokemonCaract.id.toString()]: pokemonCaract };
   return {
     type: FETCH_POKEMON_SUCCESS,
-    newState,
+    pokemon,
   };
 };

@@ -3,7 +3,6 @@ import Loader from 'components/Loader';
 import { PageContainer } from 'pages/Home/Home.style';
 
 const WithDataFetching = <Props extends object>(
-  dataName: string,
   fetchFunction: (props: Props) => any,
   shouldCallEffect: (props: Props) => any[],
 ) => (BaseComponent: React.ComponentType<Props>) => (props: Props) => {
