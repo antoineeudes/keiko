@@ -1,18 +1,16 @@
-import { makeGetRequest } from 'services/networking/request';
 import PokemonDetails, { PokemonDetailsProps } from './PokemonDetails';
 import HOC from 'HOC/withDataFetching';
 import { connect } from 'react-redux';
-import { fetchPokemonSuccess } from 'redux/Pokemon/actions';
-import { PokemonsObject, PokemonCaracteristics } from 'pages/Home/Home';
+import { fetchPokemonRequested } from 'redux/Pokemon/actions';
+import { PokemonsObject } from 'pages/Home/Home';
 
-async function fetchPokemonDetails(props: PokemonDetailsProps) {
-  const response = await makeGetRequest(`/pokemon/${props.match.params.id}`);
-  props.fetchPokemonSuccess(response.body);
+function fetchPokemonDetails(props: PokemonDetailsProps) {
+  props.fetchPokemonRequested(props.match.params.id);
 }
 
 const shouldCallPokemonDetailsEffect = (props: PokemonDetailsProps) => [props.match.params.id];
 
-const PokemonDetailsContainer = HOC('details', fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
+const PokemonDetailsContainer = HOC(fetchPokemonDetails, shouldCallPokemonDetailsEffect)(
   PokemonDetails,
 );
 
@@ -22,7 +20,7 @@ function getPokemon(state: Readonly<PokemonsObject>) {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    fetchPokemonSuccess: (pokemon: PokemonCaracteristics) => dispatch(fetchPokemonSuccess(pokemon)),
+    fetchPokemonRequested: (id: number) => dispatch(fetchPokemonRequested(id)),
   };
 };
 

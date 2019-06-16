@@ -18,7 +18,7 @@ type urlParams = { page: string };
 
 export interface HomeProps extends RouteComponentProps<urlParams> {
   pokemons: PokemonCaracteristics[];
-  fetchPokemonsSuccess: any;
+  fetchPokemonsRequested: any;
 }
 
 export default function Home(props: HomeProps) {
