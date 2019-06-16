@@ -7,7 +7,7 @@ type urlParams = { id: string };
 
 export interface PokemonDetailsProps extends RouteComponentProps<urlParams> {
   pokemon: PokemonCaracteristics;
-  fetchPokemonSuccess: any;
+  fetchPokemonRequested: any;
 }
 
 function PokemonDetails(props: PokemonDetailsProps) {
