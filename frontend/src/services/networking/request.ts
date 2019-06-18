@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { PokemonCaracteristics, PokemonsObject } from 'pages/Home/Home';
 
 const backendBaseUrl = process.env.REACT_APP_API_BASE_URL || '';
 
@@ -21,6 +22,18 @@ export const makePostRequest = (endpoint: string, data: {}) =>
 
 export const makeLoginRequest = (endpoint: string, data: {}) =>
   request.post(`${backendBaseUrl}${endpoint}`).send(data);
+
+export const fetchPokemonRequest = async (id: number) => {
+  const response = await makeGetRequest(`/pokemon/${id}`);
+  const pokemon: PokemonCaracteristics | undefined = response.body;
+  return pokemon;
+};
+
+export const fetchPokemonsRequest = async (page: number) => {
+  const response = await makeGetRequest(`/pokemon?page=${page}`);
+  const pokemons: PokemonsObject | undefined = response.body;
+  return pokemons;
+};
 
 export const login = async (endpoint: string, data: {}) => {
   const response = await makeLoginRequest(endpoint, data);
